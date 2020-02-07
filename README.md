@@ -1,7 +1,7 @@
-<center><h1>qr-code</h1></center>
+<div style="text-align:center"><h1>qr-code</h1></div>
 
-<center>Generate QR Codes fast in a variety of image formats</center>
-<center>by r0bin_dood</center>
+<div style="text-align:center">Generate QR Codes fast in a variety of image formats</div>
+
 Formats supported so far:
 
 - JPEG
