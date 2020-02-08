@@ -1,6 +1,7 @@
-<div style="text-align:center"><h1>qr-code</h1></div>
+## qr-code
 
-<div style="text-align:center">Generate QR Codes fast in a variety of image formats</div>
+Generate QR Codes fast in a variety of image formats
+<br>
 
 Formats supported so far:
 
@@ -16,7 +17,7 @@ Not yet supported:
 
 ## About
 
-This project started as an excuse to familiarize myself with image formats, especially JPEG. Since I wanted to re-invent the wheel by not using any existing image libraries, it also served as a challenging programming project. Understanding of this topic will help me in bigger, more ambitious projects; where not only do I plan on not using any existing code, but on creating my own image formats as well.
+This project started as an excuse for me to familiarize myself with image formats, especially JPEG. Since I wanted to re-invent the wheel by not using any existing image libraries, it also served as a challenging programming project. Understanding of this topic will help me in bigger, more ambitious projects; where not only do I plan on not using any existing code, but on creating my own image formats as well.
 TODO:
 (...)
 
