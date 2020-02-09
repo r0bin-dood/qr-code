@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 CSTD = c99
 INCLUDE_PATH = include/
 SOURCE_PATH = src/
