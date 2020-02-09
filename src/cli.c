@@ -59,7 +59,7 @@ main(int argc, char ** argv)
     }
 
     // For testing purposes only:
-    generate_qr_code(argv[1], argv[2], format);
+    generate_qr_code(argv[1], format, argv[2]);
     
     return 0;
 }

@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-typedef unsigned int uint;
+typedef unsigned char   uchar;
+typedef unsigned int    uint;
+typedef unsigned long   ulong;
 
 #define IMG_FMT_NUM     6
 enum img_formats {
@@ -11,13 +14,13 @@ enum img_formats {
     TIFF    = 0x000F0000,
     BMP     = 0x0000F000,
     PBM     = 0x00000F00
-}
+};
 
-uint generate_qr_code(char *, char *, uint)
+uint generate_qr_code(const char *, uint, const char *);
 
-uint qr_code_jpeg(char *, char *);
-uint qr_code_png(char *, char *);
-uint qr_code_gif(char *, char *);
-uint qr_code_tiff(char *, char *);
-uint qr_code_bmp(char *, char *);
-uint qr_code_pbm(char *, char *);
+uint qr_code_jpeg(const char *, const char *);
+uint qr_code_png(const char *, const char *);
+uint qr_code_gif(const char *, const char *);
+uint qr_code_tiff(const char *, const char *);
+uint qr_code_bmp(const char *, const char *);
+uint qr_code_pbm(const char *, const char *);

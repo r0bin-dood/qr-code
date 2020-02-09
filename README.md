@@ -44,10 +44,11 @@ C:
 int
 main(int argc, char \*\* argv)
 {
-    // TODO:
-    // write c api usage
-    return 0;
+    qr_code_jpeg("qr_image_0", "https://github.com/gorhill/uBlock/");
+    qr_code_png("qr_image_1", "https://decentraleyes.org/");
+    generate_qr_code("qr_image_2", GIF | TIFF | BMP | PBM, "https://protonmail.com/");
 
+    return 0;
 }
 ```
 
@@ -56,8 +57,10 @@ Python:
 ```python
 import qrcode
 
-# TODO:
-# write python api usage
+qr_code_jpeg("qr_image_0", b"https://www.whonix.org/")
+qr_code_png("qr_image_1", "https://www.qubes-os.org/")
+generate_qr_code("qr_image_2", qrcode.GIF | qrcode.TIFF | qrcode.BMP | qrcode.PBM, "https://tails.boum.org/")
+
 ```
 
 ## Manual Page
