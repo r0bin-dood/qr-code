@@ -8,12 +8,12 @@ typedef unsigned long   ulong;
 
 #define IMG_FMT_NUM     6
 enum img_formats {
-    JPEG    = 0xF0000000,
-    PNG     = 0x0F000000,
-    GIF     = 0x00F00000,
-    TIFF    = 0x000F0000,
-    BMP     = 0x0000F000,
-    PBM     = 0x00000F00
+    JPEG    = 0xF0000000U,
+    PNG     = 0x0F000000U,
+    GIF     = 0x00F00000U,
+    TIFF    = 0x000F0000U,
+    BMP     = 0x0000F000U,
+    PBM     = 0x00000F00U
 };
 
 uint generate_qr_code(const char *, uint, const char *);

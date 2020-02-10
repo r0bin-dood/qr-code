@@ -33,6 +33,7 @@ qr_code_jpeg(const char * filename, const char * data)
         if ( (*(data + i) < 0x20) | (*(data + i) > 0x7F) ) // check for byte data larger than 0x7F and less than 0x20, see JIS and ASCII, printable chars only
             return 1;
     
+    printf("JPEG");
 
-
+    return 0;
 }
