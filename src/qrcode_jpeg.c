@@ -3,66 +3,6 @@
 static const uint32_t JPEG_M = 0x4A464946;
 
 /*
-    SOI : Start of image    | EOI : End of image
-    RST : Restart marker
-    SOF : Start of frame
-    Lf : Frame header length
-    P : Sample precision
-    Y : Number of lines 
-    X : Number of samples per line
-    Nf : Number of image components in frame
-    C_i : Component identifier
-    H_i : Horizontal sampling factor
-    V_i : Vertical sampling factor
-    Tq_i : Quantization table destination selector
-
-    SOS : Start of scan marker
-    Ls : Scan header length
-    Ns : Number of image components in scan
-    Cs_j : Scan component selector
-    Td_j : DC entropy coding table destination selector
-    Ta_j : AC entropy coding table destination selector
-    Ss : Start of spectral or predictor selection
-    Se : End of spectral selection
-    Ah : Successive approximation bit position high
-    Al : Successive approximation bit position low or point transform
-
-    DQT : Define quantization table marker
-    Lq : Quantization table definition length
-    Pq : Quantization table element precision
-    Tq : Quantization table destination identifier
-    Q_k : Quantization table element
-
-    DHT: Define Huffman table marker
-    Lh : Huffman table definition length
-    Tc : Table class
-    Th : Huffman table destination identifier
-    L_i : Number of Huffman codes of length i
-    V_i,j : Value associated with each Huffman code
-
-    DAC : Define arithmetic coding conditioning marker
-    La : Arithmetic coding conditioning definition length
-    Tc : Table class
-    Tb : Arithmetic coding conditioning table destination identifier
-    Cs : Conditioning table value
-
-    DRI : Define restart interval marker
-    Lr : Define restart interval segment length
-    Ri : Restart interval
-
-    APP_n : Application data marker
-    Lp : Application data segment length
-    Ap_i : Application data byte
-
-    DNL : Define number of lines marker
-    Ld : Define number of lines segment length
-    NL : Number of lines
-
-    EXP : Expand reference components marker 
-    Le : Expand reference components segment length
-    Eh : Expand horizontally
-    Ev : Expand vertically
-
     SOI
     |- Table(s)
     |- DHP
@@ -107,28 +47,91 @@ static const uint32_t JPEG_M = 0x4A464946;
     
 */
 
-typedef struct {
-    uint16_t    app_0;
-    uint16_t    length;
-    uint8_t     identifier[5];
-    uint16_t    version;
-    uint8_t     units;
-    uint16_t    h_density;
-    uint16_t    v_density;
-    uint8_t     h_thumbnail_a;
-    uint8_t     v_thumbnail_a;
+// TODO: Re-order structs
+typedef struct __attribute__ ((packed)) {
+    uint16_t    Lh;
+    struct {
+        uint8_t     Tc__Th;
+        uint8_t *   L_n;
+        uint8_t *   V_nn;
+    } * table_segment;   
+} DHT;
+
+typedef struct __attribute__ ((packed)) {
+    uint16_t    Lp;
+    uint8_t     id[5];
+    uint16_t    V;
+    uint8_t     U;
+    uint16_t    Hd;
+    uint16_t    Vd;
+    uint8_t     Ht_a;
+    uint8_t     Vt_a;
     uint8_t     ** RGB;
-} APP_0;
+} APP_n;
 
-typedef struct {
-    uint16_t    sof_0;
-} Segment;
+typedef struct __attribute__ ((packed)) {
+    EXP *   exp_marker;
+    SOF *   frame_marker;
+} DHP;
 
-typedef struct {
-    uint16_t    soi;
-    APP_0       init_marker;
-    Segment *   segment;
-    uint16_t    eoi;
+typedef struct __attribute__ ((packed)) {
+    uint16_t    Le;
+    uint8_t     Eh__Ev;
+} EXP;
+
+typedef struct __attribute__ ((packed)) {
+    uint16_t    Lf;
+    uint8_t     P;
+    uint16_t    Y;
+    uint16_t    X;
+    uint8_t     Nf;
+    struct {
+        uint8_t     C_i;
+        uint8_t     H_i__V_i;
+        uint8_t     Tq_i;
+    } * component_param;
+    SOS *   scan_marker;
+    struct {
+        DNL *   num_lines;
+        SOS *   scan_marker;
+    } * scans;
+} SOF;
+
+typedef struct __attribute__ ((packed)) {
+    uint16_t    Ls;
+    uint8_t     Ns;
+    struct {
+        uint8_t     Cs_j;
+        uint8_t     Td_j__Ta_j;
+    } * component_param;
+    uint8_t     Ss;
+    uint8_t     Se;
+    uint8_t     Ah__Al;
+    ECS *       entropy_0;
+    struct {
+        RST *   reset;
+        ECS *   entropy;
+    } * body;
+} SOS;
+
+typedef struct __attribute__ ((packed)) {
+} ECS; // raw huffman encoded data
+
+typedef struct __attribute__ ((packed)) {
+    uint8_t     blank;
+} RST;
+
+typedef struct __attribute__ ((packed)) {
+    uint16_t    Ld;
+    uint16_t    NL;
+} DNL;
+
+
+typedef struct __attribute__ ((packed)) {
+    uint16_t    SOI;
+    APP_n *     app_0;
+    DHP *       segment;
+    uint16_t    EOI;
 } JPEGImage;
 
 uint 
@@ -139,7 +142,14 @@ qr_code_jpeg(const char * filename, const char * data)
         if ( (*(data + i) < 0x20) | (*(data + i) > 0x7F) ) // check for byte data larger than 0x7F and less than 0x20, see JIS and ASCII, printable chars only
             return 1;
     
-    printf("JPEG");
+    
 
     return 0;
+}
+
+// TODO: Huffman encoding implementation
+static void
+huffman_enc()
+{
+
 }

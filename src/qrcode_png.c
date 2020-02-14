@@ -2,6 +2,7 @@
 
 static const uint PNG_M = 0x89504E47;
 
+
 uint 
 qr_code_png(const char * filename, const char * data)
 {
